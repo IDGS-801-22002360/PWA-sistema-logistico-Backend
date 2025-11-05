@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Usuario } from './usuario.entity';
@@ -16,21 +16,32 @@ export class UsuarioService {
     return this.usuarioRepo.find();
   }
 
-  findOne(id: number) {
-    return this.usuarioRepo.findOneBy({ id });
+  async findOne(id: number) {
+    const usuario = await this.usuarioRepo.findOneBy({ id_usuario: id });
+    if (!usuario) {
+      throw new NotFoundException(`Usuario con ID ${id} no encontrado`);
+    }
+    return usuario;
   }
 
-  create(data: CreateUsuarioDto) {
+  async create(data: CreateUsuarioDto) {
     const nuevo = this.usuarioRepo.create(data);
     return this.usuarioRepo.save(nuevo);
   }
 
   async update(id: number, data: UpdateUsuarioDto) {
-    await this.usuarioRepo.update(id, data);
+    const resultado = await this.usuarioRepo.update(id, data);
+    if (resultado.affected === 0) {
+      throw new NotFoundException(`Usuario con ID ${id} no encontrado`);
+    }
     return this.findOne(id);
   }
 
-  remove(id: number) {
-    return this.usuarioRepo.delete(id);
+  async remove(id: number) {
+    const resultado = await this.usuarioRepo.delete(id);
+    if (resultado.affected === 0) {
+      throw new NotFoundException(`Usuario con ID ${id} no encontrado`);
+    }
+    return { message: `Usuario con ID ${id} eliminado` };
   }
 }

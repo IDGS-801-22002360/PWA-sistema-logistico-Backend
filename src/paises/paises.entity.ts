@@ -1,13 +1,13 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
-@Entity()
+@Entity('paises')
 export class Pais {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn({ name: 'id_pais' })
   id: number;
 
-  @Column()
+  @Column({ name: 'nombre_pais', type: 'varchar', length: 100, unique: true })
   nombre: string;
 
-  @Column({ length: 3, nullable: true })
-  codigo_iso: string;
+  @Column({ name: 'codigo_iso2', type: 'varchar', length: 2, unique: true })
+  iso2: string;
 }
