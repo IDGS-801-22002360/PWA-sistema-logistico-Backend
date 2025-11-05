@@ -1,37 +1,19 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  CreateDateColumn,
-} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
-@Entity('usuarios')
-export class User {
+@Entity()
+export class Usuario {
   @PrimaryGeneratedColumn()
-  id_usuario: number;
+  id: number;
 
   @Column({ length: 100 })
   nombre: string;
 
-  @Column({ length: 100 })
-  apellido: string;
+  @Column({ length: 100, unique: true })
+  correo: string;
 
-  @Column({ length: 255, unique: true })
-  email: string;
-
-  @Column({ length: 255, select: false })
+  @Column()
   password: string;
-
-  @Column({
-    type: 'enum',
-    enum: ['admin', 'ventas', 'operaciones', 'cliente'],
-    default: 'cliente',
-  })
-  rol: 'admin' | 'ventas' | 'operaciones' | 'cliente';
 
   @Column({ default: true })
   activo: boolean;
-
-  @CreateDateColumn({ type: 'datetime' })
-  fecha_creacion: Date;
 }

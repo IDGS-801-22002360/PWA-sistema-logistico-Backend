@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+
 @Entity()
-export class Agente {
+export class Cliente {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -11,7 +12,7 @@ export class Agente {
   telefono: string;
 
   @Column({ nullable: true })
-  correo: string;
+  direccion: string;
 
   @Column({ default: true })
   activo: boolean;
