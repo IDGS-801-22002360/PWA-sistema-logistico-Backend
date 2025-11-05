@@ -8,8 +8,6 @@ import { ClientesModule } from './clientes/clientes.module';
 import { AgentesModule } from './agentes/agentes.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-// puto el que lo lea
-
 @Module({
   imports: [
     TypeOrmModule.forRoot({
