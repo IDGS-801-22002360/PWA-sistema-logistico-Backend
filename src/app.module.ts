@@ -9,6 +9,10 @@ import { AgentesModule } from './agentes/agentes.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { LocalizacionModule } from './localizacion/localizacion.module';
 import { LoginModule } from './login/login.module';
+import { TarifasModule } from './tarifas/tarifas.module';
+import { CotizacionesModule } from './cotizaciones/cotizaciones.module';
+import { OperacionesModule } from './operaciones/operaciones.module';
+import { SolicitudesModule } from './solicitudes/solicitudes.module';
 
 @Module({
   imports: [
@@ -28,6 +32,10 @@ import { LoginModule } from './login/login.module';
     AgentesModule,
     PaisesModule,
     LocalizacionModule,
+    TarifasModule,
+    CotizacionesModule,
+    OperacionesModule,
+    SolicitudesModule,
     LoginModule,
   ],
   controllers: [AppController],
