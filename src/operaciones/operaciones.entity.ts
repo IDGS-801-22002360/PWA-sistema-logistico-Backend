@@ -79,7 +79,7 @@ export class Operacion {
 
   @Column({
     type: 'enum',
-    enum: ['en_transito','en_aduana','entregado','cancelado','pendiente_documentos'],
+    enum: ['en_transito', 'en_aduana', 'entregado', 'cancelado', 'pendiente_documentos'],
     name: 'estatus',
   })
   estatus: string;

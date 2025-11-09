@@ -13,6 +13,7 @@ import { TarifasModule } from './tarifas/tarifas.module';
 import { CotizacionesModule } from './cotizaciones/cotizaciones.module';
 import { OperacionesModule } from './operaciones/operaciones.module';
 import { SolicitudesModule } from './solicitudes/solicitudes.module';
+import { CotizacionCargosModule } from './cotizacion-cargos/cotizacion-cargos.module';
 
 @Module({
   imports: [
@@ -37,6 +38,7 @@ import { SolicitudesModule } from './solicitudes/solicitudes.module';
     OperacionesModule,
     SolicitudesModule,
     LoginModule,
+    CotizacionCargosModule,
   ],
   controllers: [AppController],
   providers: [AppService],
