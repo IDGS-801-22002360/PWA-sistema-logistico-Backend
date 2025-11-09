@@ -10,4 +10,4 @@ import { AgenteController } from './agentes.controller';
   providers: [AgenteService],
   exports: [AgenteService],
 })
-export class AgenteModule {}
+export class AgentesModule {}
