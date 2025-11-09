@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { Usuario } from './usuario.entity';
 import { CreateUsuarioDto } from './create-usuario.dto';
 import { UpdateUsuarioDto } from './update-usuario.dto';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsuarioService {
@@ -25,8 +26,14 @@ export class UsuarioService {
   }
 
   async create(data: CreateUsuarioDto) {
-    const nuevo = this.usuarioRepo.create(data);
-    return this.usuarioRepo.save(nuevo);
+    const hashedPassword = await bcrypt.hash(data.password, 10);
+    const nuevo = this.usuarioRepo.create({
+      ...data,
+      password: hashedPassword,
+      activo: data.activo ?? true
+    });
+    const { password, ...result } = await this.usuarioRepo.save(nuevo);
+    return result;
   }
 
   async update(id: number, data: UpdateUsuarioDto) {
