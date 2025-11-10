@@ -5,13 +5,21 @@ import {
   CreateDateColumn,
   ManyToOne,
   JoinColumn,
+  OneToMany,
 } from 'typeorm';
 import { Cotizacion } from '../cotizaciones/cotizaciones.entity';
 import { Cliente } from '../clientes/clientes.entity';
 import { Usuario } from '../usuarios/usuario.entity';
 import { Proveedor } from '../proveedores/proveedores.entity';
 import { Agente } from '../agentes/agentes.entity';
-import { TipoServicio, TipoCarga, Incoterm } from '../common/enums/transport.enums';
+import {
+  TipoServicio,
+  TipoCarga,
+  Incoterm,
+} from '../common/enums/transport.enums';
+import { Demora } from '../demoras/demoras.entity';
+import { Incidencia } from '../incidencias/incidencias.entity';
+import { Tracking } from '../tracking/tracking.entity';
 
 @Entity('operaciones')
 export class Operacion {
@@ -79,7 +87,13 @@ export class Operacion {
 
   @Column({
     type: 'enum',
-    enum: ['en_transito', 'en_aduana', 'entregado', 'cancelado', 'pendiente_documentos'],
+    enum: [
+      'en_transito',
+      'en_aduana',
+      'entregado',
+      'cancelado',
+      'pendiente_documentos',
+    ],
     name: 'estatus',
   })
   estatus: string;
@@ -92,4 +106,13 @@ export class Operacion {
 
   @CreateDateColumn({ type: 'datetime', name: 'fecha_creacion' })
   fecha_creacion: Date;
+
+  @OneToMany(() => Demora, demora => demora.operacion)
+  demoras: Demora[];
+
+  @OneToMany(() => Incidencia, incidencia => incidencia.operacion)
+  incidencias: Incidencia[];
+
+  @OneToMany(() => Tracking, tracking => tracking.operacion)
+  tracking: Tracking[];
 }

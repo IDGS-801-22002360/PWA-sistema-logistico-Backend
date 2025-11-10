@@ -14,6 +14,12 @@ import { CotizacionesModule } from './cotizaciones/cotizaciones.module';
 import { OperacionesModule } from './operaciones/operaciones.module';
 import { SolicitudesModule } from './solicitudes/solicitudes.module';
 import { CotizacionCargosModule } from './cotizacion-cargos/cotizacion-cargos.module';
+import { FacturasClienteModule } from './facturas-cliente/facturas-cliente.module';
+import { DocumentosRelacionadosModule } from './documentos-relacionados/documentos-relacionados.module';
+import { NotasCreditoModule } from './notas-credito/notas-credito.module';
+import { DemorasModule } from './demoras/demoras.module';
+import { IncidenciasModule } from './incidencias/incidencias.module';
+import { TrackingModule } from './tracking/tracking.module';
 
 @Module({
   imports: [
@@ -39,6 +45,12 @@ import { CotizacionCargosModule } from './cotizacion-cargos/cotizacion-cargos.mo
     SolicitudesModule,
     LoginModule,
     CotizacionCargosModule,
+    FacturasClienteModule,
+    DocumentosRelacionadosModule,
+    NotasCreditoModule,
+    DemorasModule,
+    IncidenciasModule,
+    TrackingModule,
   ],
   controllers: [AppController],
   providers: [AppService],
