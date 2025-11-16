@@ -41,6 +41,6 @@ export class Cliente {
   @Column({ length: 100, nullable: true, name: 'contacto_puesto' })
   contacto_puesto: string;
 
-  @CreateDateColumn({ type: 'datetime', name: 'fecha_creacion' })
+  @CreateDateColumn({ type: 'timestamp', name: 'fecha_creacion' })
   fecha_creacion: Date;
 }

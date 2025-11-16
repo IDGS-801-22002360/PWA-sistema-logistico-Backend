@@ -77,7 +77,7 @@ export class Cotizacion {
   @Column({ type: 'enum', enum: Incoterm })
   incoterm: Incoterm;
 
-  @Column({ type: 'datetime', name: 'fecha_solicitud', nullable: true })
+  @Column({ type: 'timestamp', name: 'fecha_solicitud', nullable: true })
   fecha_solicitud: Date;
 
   @Column({ type: 'date', name: 'fecha_estimada_arribo', nullable: true })
@@ -99,10 +99,10 @@ export class Cotizacion {
   @Column({ type: 'text', nullable: true, name: 'motivo_rechazo' })
   motivo_rechazo?: string;
 
-  @Column({ type: 'datetime', name: 'fecha_aprobacion_rechazo', nullable: true })
+  @Column({ type: 'timestamp', name: 'fecha_aprobacion_rechazo', nullable: true })
   fecha_aprobacion_rechazo?: Date;
 
-  @CreateDateColumn({ type: 'datetime', name: 'fecha_creacion' })
+  @CreateDateColumn({ type: 'timestamp', name: 'fecha_creacion' })
   fecha_creacion: Date;
 
   @Column({ name: 'id_solicitud_cliente', nullable: true })

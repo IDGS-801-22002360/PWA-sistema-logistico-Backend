@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-//import { ConfigModule } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsuariosModule } from './usuarios/usuarios.module';
@@ -21,19 +21,15 @@ import { NotasCreditoModule } from './notas-credito/notas-credito.module';
 import { DemorasModule } from './demoras/demoras.module';
 import { IncidenciasModule } from './incidencias/incidencias.module';
 import { TrackingModule } from './tracking/tracking.module';
+import { getDatabaseConfig } from './config/database.config';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: 'Admin',
-      database: 'logistica',
-      autoLoadEntities: true,
-      synchronize: false,
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: ['.env'],
     }),
+    TypeOrmModule.forRoot(getDatabaseConfig()),
     UsuariosModule,
     ProveedoresModule,
     ClientesModule,

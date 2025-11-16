@@ -13,7 +13,7 @@ export class Incidencia {
   @JoinColumn({ name: 'id_operacion' })
   operacion: Operacion;
 
-  @Column({ type: 'datetime', name: 'fecha_hora_incidencia' })
+  @Column({ type: 'timestamp', name: 'fecha_hora_incidencia' })
   fecha_hora_incidencia: Date;
 
   @Column({ type: 'text', name: 'descripcion_incidencia' })
@@ -34,12 +34,12 @@ export class Incidencia {
   })
   estatus: string;
 
-  @Column({ type: 'datetime', name: 'fecha_resolucion', nullable: true })
+  @Column({ type: 'timestamp', name: 'fecha_resolucion', nullable: true })
   fecha_resolucion: Date;
 
   @Column({ type: 'text', name: 'comentarios_resolucion', nullable: true })
   comentarios_resolucion: string;
 
-  @Column({ type: 'datetime', name: 'fecha_registro', default: () => 'CURRENT_TIMESTAMP' })
+  @Column({ type: 'timestamp', name: 'fecha_registro', default: () => 'CURRENT_TIMESTAMP' })
   fecha_registro: Date;
 }

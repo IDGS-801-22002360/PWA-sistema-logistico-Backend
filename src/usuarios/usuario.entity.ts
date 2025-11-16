@@ -20,7 +20,6 @@ export class Usuario {
   @Column({ length: 255, unique: true })
   email: string;
 
-  // sin select:false
   @Column({ length: 255 })
   password: string;
 
@@ -34,6 +33,6 @@ export class Usuario {
   @Column({ default: true })
   activo: boolean;
 
-  @CreateDateColumn({ type: 'datetime', name: 'fecha_creacion' })
+  @CreateDateColumn({ type: 'timestamp', name: 'fecha_creacion' })
   fecha_creacion: Date;
 }

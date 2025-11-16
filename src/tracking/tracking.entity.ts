@@ -13,7 +13,7 @@ export class Tracking {
   @JoinColumn({ name: 'id_operacion' })
   operacion: Operacion;
 
-  @Column({ type: 'datetime', name: 'fecha_hora_actualizacion', default: () => 'CURRENT_TIMESTAMP' })
+  @Column({ type: 'timestamp', name: 'fecha_hora_actualizacion', default: () => 'CURRENT_TIMESTAMP' })
   fecha_hora_actualizacion: Date;
 
   @Column({ length: 255, name: 'ubicacion_actual', nullable: true })
@@ -35,6 +35,6 @@ export class Tracking {
   @Column({ type: 'text', name: 'notas_tracking', nullable: true })
   notas_tracking: string;
 
-  @Column({ type: 'datetime', name: 'fecha_registro', default: () => 'CURRENT_TIMESTAMP' })
+  @Column({ type: 'timestamp', name: 'fecha_registro', default: () => 'CURRENT_TIMESTAMP' })
   fecha_registro: Date;
 }

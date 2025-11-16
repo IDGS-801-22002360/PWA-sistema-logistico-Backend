@@ -52,6 +52,6 @@ export class Proveedor {
   })
   tipo_servicio_ofrecido: TipoServicio;
 
-  @CreateDateColumn({ type: 'datetime', name: 'fecha_creacion' })
+  @CreateDateColumn({ type: 'timestamp', name: 'fecha_creacion' })
   fecha_creacion: Date;
 }

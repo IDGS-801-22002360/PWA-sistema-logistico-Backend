@@ -32,7 +32,7 @@ export class FacturaCliente {
   @Column({ name: 'numero_factura', length: 100, unique: true })
   numero_factura: string;
 
-  @Column({ type: 'datetime', name: 'fecha_emision', default: () => 'CURRENT_TIMESTAMP' })
+  @Column({ type: 'timestamp', name: 'fecha_emision', default: () => 'CURRENT_TIMESTAMP' })
   fecha_emision: Date;
 
   @Column({ type: 'date', name: 'fecha_vencimiento' })
@@ -53,9 +53,9 @@ export class FacturaCliente {
   @Column({ type: 'text', nullable: true })
   observaciones?: string;
 
-  @Column({ type: 'datetime', name: 'fecha_pago', nullable: true })
+  @Column({ type: 'timestamp', name: 'fecha_pago', nullable: true })
   fecha_pago?: Date;
 
-  @CreateDateColumn({ type: 'datetime', name: 'fecha_creacion' })
+  @CreateDateColumn({ type: 'timestamp', name: 'fecha_creacion' })
   fecha_creacion: Date;
 }

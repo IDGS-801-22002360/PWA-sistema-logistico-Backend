@@ -70,7 +70,7 @@ export class Operacion {
   @Column({ type: 'enum', enum: Incoterm })
   incoterm: Incoterm;
 
-  @Column({ type: 'datetime', name: 'fecha_inicio_operacion', nullable: true })
+  @Column({ type: 'timestamp', name: 'fecha_inicio_operacion', nullable: true })
   fecha_inicio_operacion?: Date;
 
   @Column({ type: 'date', name: 'fecha_estimada_arribo', nullable: true })
@@ -79,10 +79,10 @@ export class Operacion {
   @Column({ type: 'date', name: 'fecha_estimada_entrega', nullable: true })
   fecha_estimada_entrega?: Date;
 
-  @Column({ type: 'datetime', name: 'fecha_arribo_real', nullable: true })
+  @Column({ type: 'timestamp', name: 'fecha_arribo_real', nullable: true })
   fecha_arribo_real?: Date;
 
-  @Column({ type: 'datetime', name: 'fecha_entrega_real', nullable: true })
+  @Column({ type: 'timestamp', name: 'fecha_entrega_real', nullable: true })
   fecha_entrega_real?: Date;
 
   @Column({
@@ -104,7 +104,7 @@ export class Operacion {
   @Column({ type: 'text', name: 'notas_operacion', nullable: true })
   notas_operacion?: string;
 
-  @CreateDateColumn({ type: 'datetime', name: 'fecha_creacion' })
+  @CreateDateColumn({ type: 'timestamp', name: 'fecha_creacion' })
   fecha_creacion: Date;
 
   @OneToMany(() => Demora, demora => demora.operacion)

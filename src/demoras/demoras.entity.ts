@@ -13,7 +13,7 @@ export class Demora {
   @JoinColumn({ name: 'id_operacion' })
   operacion: Operacion;
 
-  @Column({ type: 'datetime', name: 'fecha_hora_demora' })
+  @Column({ type: 'timestamp', name: 'fecha_hora_demora' })
   fecha_hora_demora: Date;
 
   @Column({ type: 'text', name: 'descripcion_demora', nullable: true })
@@ -32,6 +32,6 @@ export class Demora {
   @Column({ length: 3, name: 'moneda', nullable: true })
   moneda: string;
 
-  @Column({ type: 'datetime', name: 'fecha_registro', default: () => 'CURRENT_TIMESTAMP' })
+  @Column({ type: 'timestamp', name: 'fecha_registro', default: () => 'CURRENT_TIMESTAMP' })
   fecha_registro: Date;
 }

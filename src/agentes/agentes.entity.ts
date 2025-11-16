@@ -31,6 +31,6 @@ export class Agente {
   })
   tipo_agente: TipoAgente;
 
-  @CreateDateColumn({ type: 'datetime', name: 'fecha_creacion' })
+  @CreateDateColumn({ type: 'timestamp', name: 'fecha_creacion' })
   fecha_creacion: Date;
 }

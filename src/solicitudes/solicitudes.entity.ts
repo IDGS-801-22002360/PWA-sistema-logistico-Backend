@@ -35,7 +35,7 @@ export class SolicitudCotizacionCliente {
   @JoinColumn({ name: 'id_destino_localizacion' })
   destino: Localizacion;
 
-  @Column({ type: 'datetime', name: 'fecha_solicitud', nullable: true })
+  @Column({ type: 'timestamp', name: 'fecha_solicitud', nullable: true })
   fecha_solicitud: Date;
 
   @Column({ type: 'text', nullable: true, name: 'descripcion_mercancia' })

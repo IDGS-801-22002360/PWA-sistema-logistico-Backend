@@ -24,7 +24,7 @@ export class NotaCredito {
   numero_nota_credito: string;
 
   @Column({
-    type: 'datetime',
+    type: 'timestamp',
     name: 'fecha_emision',
     default: () => 'CURRENT_TIMESTAMP',
   })
@@ -39,6 +39,6 @@ export class NotaCredito {
   @Column({ type: 'text', nullable: true })
   motivo?: string;
 
-  @CreateDateColumn({ type: 'datetime', name: 'fecha_creacion' })
+  @CreateDateColumn({ type: 'timestamp', name: 'fecha_creacion' })
   fecha_creacion: Date;
 }

@@ -31,7 +31,7 @@ export class DocumentoRelacionado {
   @Column({ name: 'url_archivo', length: 2048 })
   url_archivo: string;
 
-  @Column({ type: 'datetime', name: 'fecha_carga', default: () => 'CURRENT_TIMESTAMP' })
+  @Column({ type: 'timestamp', name: 'fecha_carga', default: () => 'CURRENT_TIMESTAMP' })
   fecha_carga: Date;
 
   @Column({ name: 'id_usuario_carga' })
