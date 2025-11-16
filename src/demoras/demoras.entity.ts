@@ -1,39 +1,37 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  ManyToOne,
-  CreateDateColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { Operacion } from '../operaciones/operaciones.entity';
 
 @Entity('demoras')
 export class Demora {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn({ name: 'id_demora' })
+  id_demora: number;
 
-  @Column()
-  descripcion: string;
+  @Column({ name: 'id_operacion' })
+  id_operacion: number;
 
-  @Column()
-  tiempo_demora: number;
-
-  @Column()
-  motivo: string;
-
-  @Column()
-  impacto: string;
-
-  @Column()
-  acciones_tomadas: string;
-
-  @ManyToOne(() => Operacion, operacion => operacion.demoras)
+  @ManyToOne(() => Operacion, (operacion) => operacion.demoras)
+  @JoinColumn({ name: 'id_operacion' })
   operacion: Operacion;
 
-  @CreateDateColumn()
-  created_at: Date;
+  @Column({ type: 'datetime', name: 'fecha_hora_demora' })
+  fecha_hora_demora: Date;
 
-  @UpdateDateColumn()
-  updated_at: Date;
+  @Column({ type: 'text', name: 'descripcion_demora', nullable: true })
+  descripcion_demora: string;
+
+  @Column({
+    type: 'enum',
+    enum: ['climatica', 'aduana', 'mecanica', 'documental', 'trafico', 'otro'],
+    name: 'tipo_demora'
+  })
+  tipo_demora: string;
+
+  @Column({ type: 'decimal', precision: 10, scale: 2, name: 'costo_asociado', default: 0 })
+  costo_asociado: number;
+
+  @Column({ length: 3, name: 'moneda', nullable: true })
+  moneda: string;
+
+  @Column({ type: 'datetime', name: 'fecha_registro', default: () => 'CURRENT_TIMESTAMP' })
+  fecha_registro: Date;
 }

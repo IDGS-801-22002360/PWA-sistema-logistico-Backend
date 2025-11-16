@@ -1,39 +1,45 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  ManyToOne,
-  CreateDateColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { Operacion } from '../operaciones/operaciones.entity';
 
 @Entity('incidencias')
 export class Incidencia {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn({ name: 'id_incidencia' })
+  id_incidencia: number;
 
-  @Column()
-  tipo_incidencia: string;
+  @Column({ name: 'id_operacion' })
+  id_operacion: number;
 
-  @Column()
-  descripcion: string;
-
-  @Column()
-  gravedad: string;
-
-  @Column()
-  estado: string;
-
-  @Column()
-  resolucion: string;
-
-  @ManyToOne(() => Operacion, operacion => operacion.incidencias)
+  @ManyToOne(() => Operacion, (incidencia) => incidencia.incidencias)
+  @JoinColumn({ name: 'id_operacion' })
   operacion: Operacion;
 
-  @CreateDateColumn()
-  created_at: Date;
+  @Column({ type: 'datetime', name: 'fecha_hora_incidencia' })
+  fecha_hora_incidencia: Date;
 
-  @UpdateDateColumn()
-  updated_at: Date;
+  @Column({ type: 'text', name: 'descripcion_incidencia' })
+  descripcion_incidencia: string;
+
+  @Column({
+    type: 'enum',
+    enum: ['daño_mercancia', 'extravio_parcial', 'extravio_total', 'robo', 'error_documentacion', 'otro'],
+    name: 'tipo_incidencia'
+  })
+  tipo_incidencia: string;
+
+  @Column({
+    type: 'enum',
+    enum: ['reportada', 'en_revision', 'resuelta', 'escalada'],
+    name: 'estatus',
+    default: 'reportada'
+  })
+  estatus: string;
+
+  @Column({ type: 'datetime', name: 'fecha_resolucion', nullable: true })
+  fecha_resolucion: Date;
+
+  @Column({ type: 'text', name: 'comentarios_resolucion', nullable: true })
+  comentarios_resolucion: string;
+
+  @Column({ type: 'datetime', name: 'fecha_registro', default: () => 'CURRENT_TIMESTAMP' })
+  fecha_registro: Date;
 }

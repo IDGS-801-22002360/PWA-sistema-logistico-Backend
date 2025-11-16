@@ -1,4 +1,4 @@
-import { IsInt, IsNotEmpty, IsString, IsDateString, IsNumber, IsOptional } from 'class-validator';
+import { IsInt, IsNotEmpty, IsString, IsDateString, IsNumber, IsOptional, IsEnum } from 'class-validator';
 
 export class CreateFacturaClienteDto {
   @IsInt()
@@ -28,6 +28,10 @@ export class CreateFacturaClienteDto {
 
   @IsString()
   moneda: string;
+
+  @IsEnum(['pendiente', 'pagada', 'vencida', 'cancelada'])
+  @IsOptional()
+  estatus?: string;
 
   @IsOptional()
   @IsString()

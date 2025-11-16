@@ -1,21 +1,24 @@
-import { IsString, IsNumber, IsOptional } from 'class-validator';
+import { IsString, IsNumber, IsOptional, IsEnum, IsDateString } from 'class-validator';
 
 export class CreateDemoraDto {
+  @IsNumber()
+  id_operacion: number;
+
+  @IsDateString()
+  fecha_hora_demora: string;
+
   @IsString()
-  descripcion: string;
+  @IsOptional()
+  descripcion_demora?: string;
+
+  @IsEnum(['climatica', 'aduana', 'mecanica', 'documental', 'trafico', 'otro'])
+  tipo_demora: string;
 
   @IsNumber()
-  tiempo_demora: number;
+  @IsOptional()
+  costo_asociado?: number;
 
   @IsString()
-  motivo: string;
-
-  @IsString()
-  impacto: string;
-
-  @IsString()
-  acciones_tomadas: string;
-
-  @IsNumber()
-  operacionId: number;
+  @IsOptional()
+  moneda?: string;
 }

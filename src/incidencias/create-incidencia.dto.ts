@@ -1,22 +1,27 @@
-import { IsString, IsOptional } from 'class-validator';
+import { IsNumber, IsString, IsOptional, IsEnum, IsDateString } from 'class-validator';
 
 export class CreateIncidenciaDto {
+  @IsNumber()
+  id_operacion: number;
+
+  @IsDateString()
+  fecha_hora_incidencia: string;
+
   @IsString()
+  descripcion_incidencia: string;
+
+  @IsEnum(['daño_mercancia', 'extravio_parcial', 'extravio_total', 'robo', 'error_documentacion', 'otro'])
   tipo_incidencia: string;
 
-  @IsString()
-  descripcion: string;
+  @IsEnum(['reportada', 'en_revision', 'resuelta', 'escalada'])
+  @IsOptional()
+  estatus?: string;
 
-  @IsString()
-  gravedad: string;
-
-  @IsString()
-  estado: string;
+  @IsDateString()
+  @IsOptional()
+  fecha_resolucion?: string;
 
   @IsString()
   @IsOptional()
-  resolucion?: string;
-
-  @IsString()
-  operacionId: string;
+  comentarios_resolucion?: string;
 }

@@ -14,7 +14,12 @@ async function bootstrap() {
   );
 
   app.enableCors({
-    origin: 'http://localhost:5173',
+    origin: [
+      'http://localhost:4200',
+      'http://localhost:3000',
+      //aqui va a ir la URL del AWS o de Netlify que pongamos',
+      process.env.API_BASE_URL,
+    ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
   });

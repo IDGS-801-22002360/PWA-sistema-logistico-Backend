@@ -25,7 +25,7 @@ export class IncidenciasService {
 
   async findOne(id: number): Promise<Incidencia> {
     const incidencia = await this.incidenciaRepository.findOne({
-      where: { id },
+      where: { id_incidencia: id },
       relations: ['operacion'],
     });
     if (!incidencia) {

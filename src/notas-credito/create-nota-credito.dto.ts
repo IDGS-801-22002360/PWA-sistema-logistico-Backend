@@ -1,4 +1,4 @@
-import { IsInt, IsNotEmpty, IsString, IsNumber } from 'class-validator';
+import { IsInt, IsNotEmpty, IsString, IsNumber, IsOptional } from 'class-validator';
 
 export class CreateNotaCreditoDto {
   @IsInt()
@@ -15,5 +15,6 @@ export class CreateNotaCreditoDto {
   moneda: string;
 
   @IsString()
+  @IsOptional()
   motivo?: string;
 }

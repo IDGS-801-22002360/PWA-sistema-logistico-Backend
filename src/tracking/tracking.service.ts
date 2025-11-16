@@ -13,23 +13,20 @@ export class TrackingService {
   ) {}
 
   async create(createTrackingDto: CreateTrackingDto): Promise<Tracking> {
-    const tracking = this.trackingRepository.create({
-      ...createTrackingDto,
-      operacionId: Number(createTrackingDto.operacionId),
-    });
+    const tracking = this.trackingRepository.create(createTrackingDto);
     return await this.trackingRepository.save(tracking);
   }
 
   async findAll(): Promise<Tracking[]> {
     return await this.trackingRepository.find({
       relations: ['operacion'],
-      order: { fecha_evento: 'DESC' },
+      order: { fecha_hora_actualizacion: 'DESC' },
     });
   }
 
   async findOne(id: number): Promise<Tracking> {
     const tracking = await this.trackingRepository.findOne({
-      where: { id },
+      where: { id_tracking: id },
       relations: ['operacion'],
     });
     if (!tracking) {
@@ -40,20 +37,14 @@ export class TrackingService {
 
   async findByOperacion(operacionId: number): Promise<Tracking[]> {
     return await this.trackingRepository.find({
-      where: { operacionId: operacionId },
+      where: { id_operacion: operacionId },
       relations: ['operacion'],
-      order: { fecha_evento: 'DESC' },
+      order: { fecha_hora_actualizacion: 'DESC' },
     });
   }
 
-  async update(
-    id: number,
-    updateTrackingDto: UpdateTrackingDto,
-  ): Promise<Tracking> {
+  async update(id: number, updateTrackingDto: UpdateTrackingDto): Promise<Tracking> {
     const tracking = await this.findOne(id);
-    if (updateTrackingDto.operacionId) {
-      updateTrackingDto.operacionId = Number(updateTrackingDto.operacionId);
-    }
     this.trackingRepository.merge(tracking, updateTrackingDto);
     return await this.trackingRepository.save(tracking);
   }

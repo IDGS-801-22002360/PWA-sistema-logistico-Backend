@@ -1,22 +1,29 @@
-import { IsString, IsDate, IsOptional, IsNumber } from 'class-validator';
-import { Type } from 'class-transformer';
+import { IsString, IsOptional, IsNumber, IsEnum, IsDateString } from 'class-validator';
 
 export class CreateTrackingDto {
-  @IsString()
-  ubicacion: string;
+  @IsNumber()
+  id_operacion: number;
 
-  @IsString()
-  estado: string;
+  @IsDateString()
+  @IsOptional()
+  fecha_hora_actualizacion?: string;
 
   @IsString()
   @IsOptional()
-  comentarios?: string;
+  ubicacion_actual?: string;
 
-  @IsDate()
-  @Type(() => Date)
-  fecha_evento: Date;
+  @IsEnum(['en_origen', 'en_transito', 'en_destino', 'entregado', 'aduana'])
+  estatus_seguimiento: string;
 
-  @Type(() => Number)
-  @IsNumber()
-  operacionId: number;
+  @IsString()
+  @IsOptional()
+  referencia_transportista?: string;
+
+  @IsString()
+  @IsOptional()
+  nombre_transportista?: string;
+
+  @IsString()
+  @IsOptional()
+  notas_tracking?: string;
 }
