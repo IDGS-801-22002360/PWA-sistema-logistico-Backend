@@ -22,6 +22,7 @@ import { DemorasModule } from './demoras/demoras.module';
 import { IncidenciasModule } from './incidencias/incidencias.module';
 import { TrackingModule } from './tracking/tracking.module';
 import { getDatabaseConfig } from './config/database.config';
+import { MovilModule } from './movil/movil.module';
 
 @Module({
   imports: [
@@ -48,6 +49,7 @@ import { getDatabaseConfig } from './config/database.config';
     DemorasModule,
     IncidenciasModule,
     TrackingModule,
+    MovilModule,
   ],
   controllers: [AppController],
   providers: [AppService],

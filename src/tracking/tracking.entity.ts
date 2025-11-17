@@ -19,6 +19,12 @@ export class Tracking {
   @Column({ length: 255, name: 'ubicacion_actual', nullable: true })
   ubicacion_actual: string;
 
+  @Column({ type: 'decimal', precision: 10, scale: 8, name: 'latitud', nullable: true })
+  latitud: number;
+
+  @Column({ type: 'decimal', precision: 11, scale: 8, name: 'longitud', nullable: true })
+  longitud: number;
+
   @Column({
     type: 'enum',
     enum: ['en_origen', 'en_transito', 'en_destino', 'entregado', 'aduana'],

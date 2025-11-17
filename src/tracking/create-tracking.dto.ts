@@ -12,6 +12,14 @@ export class CreateTrackingDto {
   @IsOptional()
   ubicacion_actual?: string;
 
+  @IsNumber()
+  @IsOptional()
+  latitud?: number;
+
+  @IsNumber()
+  @IsOptional()
+  longitud?: number;
+
   @IsEnum(['en_origen', 'en_transito', 'en_destino', 'entregado', 'aduana'])
   estatus_seguimiento: string;
 
