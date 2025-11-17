@@ -43,7 +43,7 @@ export class MovilService {
     private paisRepo: Repository<Pais>,
     @InjectRepository(Localizacion)
     private localizacionRepo: Repository<Localizacion>,
-  ) {}
+  ) { }
 
   private sha256Hash(text: string): string {
     return crypto.createHash('sha256').update(text, 'utf8').digest('hex');
@@ -51,7 +51,7 @@ export class MovilService {
 
   async login(loginDto: LoginRequestDto) {
     const pwdHash = this.sha256Hash(loginDto.password);
-    
+
     const usuario = await this.usuarioRepo.findOne({
       where: { email: loginDto.email },
     });
@@ -146,7 +146,7 @@ export class MovilService {
         idPais,
         registerDto.telefono || null,
         registerDto.email,
-        ${registerDto.nombre} ${registerDto.apellido},
+        `${registerDto.nombre} ${registerDto.apellido}`,
         'Titular'
       ]);
 
@@ -218,12 +218,12 @@ export class MovilService {
   async crearSolicitud(clientId: string, solicitudDto: CrearSolicitudRequestDto) {
     try {
       const idCliente = parseInt(clientId);
-      
+
       // Buscar o crear localizaciones de origen y destino
       const origenPais = await this.paisRepo.findOne({
         where: { nombre: solicitudDto.origen_pais },
       });
-      
+
       const destinoPais = await this.paisRepo.findOne({
         where: { nombre: solicitudDto.destino_pais },
       });
@@ -343,7 +343,7 @@ export class MovilService {
   async editarCliente(clientId: string, editarDto: EditarClienteRequestDto) {
     try {
       const idCliente = parseInt(clientId);
-      
+
       // Actualizar información del cliente
       const updateDataCliente: any = {};
       if (editarDto.nombre_empresa) updateDataCliente.nombre_empresa = editarDto.nombre_empresa;
@@ -376,7 +376,7 @@ export class MovilService {
   async getClienteUsuarioInfo(clientId: string) {
     try {
       const idCliente = parseInt(clientId);
-      
+
       const cliente = await this.clienteRepo.findOne({
         where: { id_cliente: idCliente },
         relations: ['pais'],
@@ -419,7 +419,7 @@ export class MovilService {
   async getFacturasCliente(clientId: string): Promise<FacturaClienteResponseDto[]> {
     try {
       const idCliente = parseInt(clientId);
-      
+
       const facturas = await this.facturaRepo
         .createQueryBuilder('factura')
         .leftJoinAndSelect('factura.cliente', 'cliente')
@@ -461,7 +461,7 @@ export class MovilService {
   async getTrackingPorOperacion(idOperacion: string) {
     try {
       const operacionId = parseInt(idOperacion);
-      
+
       const tracking = await this.trackingRepo.find({
         where: { id_operacion: operacionId },
         relations: ['operacion'],
