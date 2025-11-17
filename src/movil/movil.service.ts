@@ -54,7 +54,6 @@ export class MovilService {
 
     const usuario = await this.usuarioRepo.findOne({
       where: { email: loginDto.email },
-      relations: ['cliente'],
     });
 
     if (!usuario) {
@@ -75,9 +74,9 @@ export class MovilService {
       return { status: 0, message: 'Usuario inactivo', user: [] };
     }
 
-    // Buscar cliente asociado
+    // Buscar cliente asociado por id_usuario (ya que en registerCliente guardamos el id_usuario del cliente creado)
     const cliente = await this.clienteRepo.findOne({
-      where: { id_cliente: usuario.id_usuario }, // Asumiendo relación directa
+      where: { id_cliente: usuario.id_usuario },
     });
 
     const userResponse = {
@@ -136,18 +135,26 @@ export class MovilService {
         idPais = pais?.id || null;
       }
 
-      // Crear cliente (se omite el id_cliente aquí para evitar conflictos de typing de TypeORM)
-      const nuevoCliente = this.clienteRepo.create({
-        nombre_empresa: registerDto.nombre_empresa,
-        rfc: registerDto.rfc,
-        id_pais: idPais,
-        telefono: registerDto.telefono || null,
-        email_contacto: registerDto.email,
-        contacto_nombre: `${registerDto.nombre} ${registerDto.apellido}`,
-        contacto_puesto: 'Titular',
-      } as any);
+      // Crear cliente usando INSERT directo para que id_cliente = id_usuario
+      await this.clienteRepo.query(`
+        INSERT INTO clientes (id_cliente, nombre_empresa, rfc, id_pais, telefono, email_contacto, contacto_nombre, contacto_puesto, fecha_creacion) 
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, NOW())
+      `, [
+        usuarioGuardado.id_usuario,
+        registerDto.nombre_empresa,
+        registerDto.rfc,
+        idPais,
+        registerDto.telefono || null,
+        registerDto.email,
+        registerDto.nombre,
+        registerDto.apellido,
+        'Titular',
+      ]);
 
-      const clienteGuardado = await this.clienteRepo.save(nuevoCliente as any) as Cliente;
+      // Obtener el cliente creado para confirmar
+      const clienteGuardado = await this.clienteRepo.findOne({
+        where: { id_cliente: usuarioGuardado.id_usuario }
+      });
 
       const usuarioResponse = {
         id_usuario: usuarioGuardado.id_usuario,
@@ -155,9 +162,9 @@ export class MovilService {
         apellido: usuarioGuardado.apellido,
         email: usuarioGuardado.email,
         rol: usuarioGuardado.rol,
-        id_cliente: clienteGuardado.id_cliente,
-        nombre_empresa: clienteGuardado.nombre_empresa,
-        rfc: clienteGuardado.rfc,
+        id_cliente: clienteGuardado!.id_cliente,
+        nombre_empresa: clienteGuardado!.nombre_empresa,
+        rfc: clienteGuardado!.rfc,
       };
 
       return {
