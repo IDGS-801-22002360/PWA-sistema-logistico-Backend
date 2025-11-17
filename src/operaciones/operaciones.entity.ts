@@ -95,6 +95,7 @@ export class Operacion {
       'pendiente_documentos',
     ],
     name: 'estatus',
+    default: 'pendiente_documentos',
   })
   estatus: string;
 
