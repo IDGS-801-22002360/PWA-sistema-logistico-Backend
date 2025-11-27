@@ -17,7 +17,7 @@ async function bootstrap() {
     origin: [
       'http://localhost:3000', //* Local
       'http://localhost:4200', //* React Local
-      'http://localhost:5173', //* la del Jesus
+      'http://localhost:5173',
       'https://crmlogistico-gqembuffawgdfudk.canadacentral-01.azurewebsites.net',
       process.env.API_BASE_URL,
     ],
