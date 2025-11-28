@@ -13,11 +13,16 @@ export class OperacionesService {
   ) {}
 
   findAll() {
-    return this.repo.find();
+    return this.repo.find({
+      relations: ['cliente', 'usuario_operativo', 'proveedor', 'agente'],
+    });
   }
 
   findOne(id: number) {
-    return this.repo.findOneBy({ id_operacion: id });
+    return this.repo.findOne({
+      where: { id_operacion: id },
+      relations: ['cliente', 'usuario_operativo', 'proveedor', 'agente'],
+    });
   }
 
   async create(data: CreateOperacionDto) {
