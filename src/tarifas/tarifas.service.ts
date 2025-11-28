@@ -13,11 +13,16 @@ export class TarifasService {
   ) {}
 
   findAll() {
-    return this.repo.find();
+    return this.repo.find({
+      relations: ['proveedor', 'origen', 'destino'],
+    });
   }
 
   findOne(id: number) {
-    return this.repo.findOneBy({ id_tarifa: id });
+    return this.repo.findOne({
+      where: { id_tarifa: id },
+      relations: ['proveedor', 'origen', 'destino'],
+    });
   }
 
   async create(data: CreateTarifaDto) {
@@ -26,13 +31,13 @@ export class TarifasService {
   }
 
   async update(id: number, data: UpdateTarifaDto) {
-    const res = await this.repo.update(id, data as any);
+    const res = await this.repo.update({ id_tarifa: id }, data as any);
     if (res.affected === 0) throw new NotFoundException(`Tarifa ${id} no encontrada`);
     return this.findOne(id);
   }
 
   async remove(id: number) {
-    const res = await this.repo.delete(id);
+    const res = await this.repo.delete({ id_tarifa: id });
     if (res.affected === 0) throw new NotFoundException(`Tarifa ${id} no encontrada`);
     return { message: `Tarifa ${id} eliminada` };
   }

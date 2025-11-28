@@ -13,11 +13,16 @@ export class CotizacionesService {
   ) {}
 
   findAll() {
-    return this.repo.find();
+    return this.repo.find({
+      relations: ['cliente', 'usuario_ventas', 'usuario_operativo', 'origen', 'destino', 'proveedor', 'agente', 'solicitud_cliente'],
+    });
   }
 
   findOne(id: number) {
-    return this.repo.findOneBy({ id_cotizacion: id });
+    return this.repo.findOne({
+      where: { id_cotizacion: id },
+      relations: ['cliente', 'usuario_ventas', 'usuario_operativo', 'origen', 'destino', 'proveedor', 'agente', 'solicitud_cliente'],
+    });
   }
 
   async create(data: CreateCotizacionDto) {
@@ -26,13 +31,13 @@ export class CotizacionesService {
   }
 
   async update(id: number, data: UpdateCotizacionDto) {
-    const res = await this.repo.update(id, data as any);
+    const res = await this.repo.update({ id_cotizacion: id }, data as any);
     if (res.affected === 0) throw new NotFoundException(`Cotizacion ${id} no encontrada`);
     return this.findOne(id);
   }
 
   async remove(id: number) {
-    const res = await this.repo.delete(id);
+    const res = await this.repo.delete({ id_cotizacion: id });
     if (res.affected === 0) throw new NotFoundException(`Cotizacion ${id} no encontrada`);
     return { message: `Cotizacion ${id} eliminada` };
   }
