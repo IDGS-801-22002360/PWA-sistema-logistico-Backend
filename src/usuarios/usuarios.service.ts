@@ -22,7 +22,10 @@ export class UsuarioService {
     if (!usuario) {
       throw new NotFoundException(`Usuario con ID ${id} no encontrado`);
     }
-    return usuario;
+    // Remove password before returning
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password, ...safe } = usuario as any;
+    return safe;
   }
 
   async create(data: CreateUsuarioDto) {
@@ -37,7 +40,14 @@ export class UsuarioService {
   }
 
   async update(id: number, data: UpdateUsuarioDto) {
-    const resultado = await this.usuarioRepo.update(id, data);
+    // If password is being updated, hash it
+    const payload: any = { ...data } as any;
+    if (payload.password) {
+      const hashed = await bcrypt.hash(payload.password, 10);
+      payload.password = hashed;
+    }
+
+    const resultado = await this.usuarioRepo.update({ id_usuario: id }, payload as any);
     if (resultado.affected === 0) {
       throw new NotFoundException(`Usuario con ID ${id} no encontrado`);
     }
@@ -45,7 +55,7 @@ export class UsuarioService {
   }
 
   async remove(id: number) {
-    const resultado = await this.usuarioRepo.delete(id);
+    const resultado = await this.usuarioRepo.delete({ id_usuario: id });
     if (resultado.affected === 0) {
       throw new NotFoundException(`Usuario con ID ${id} no encontrado`);
     }
