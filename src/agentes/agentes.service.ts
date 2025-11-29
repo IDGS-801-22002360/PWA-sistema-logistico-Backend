@@ -13,7 +13,9 @@ export class AgenteService {
   ) {}
 
   findAll() {
-    return this.agenteRepository.find();
+    return this.agenteRepository.find({
+      order: { id_agente: 'ASC' },
+    });
   }
 
   async findOne(id: number) {

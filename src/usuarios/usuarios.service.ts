@@ -14,7 +14,9 @@ export class UsuarioService {
   ) {}
 
   findAll() {
-    return this.usuarioRepo.find();
+    return this.usuarioRepo.find({
+      order: { id_usuario: 'ASC' },
+    });
   }
 
   async findOne(id: number) {

@@ -15,7 +15,10 @@ export class ProveedorService {
   ) {}
 
   findAll() {
-    return this.proveedorRepository.find({ relations: this.relations });
+    return this.proveedorRepository.find({
+      relations: this.relations,
+      order: { id_proveedor: 'ASC' },
+    });
   }
 
   async findOne(id: number) {

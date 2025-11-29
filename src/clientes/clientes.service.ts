@@ -15,7 +15,10 @@ export class ClienteService {
   ) {}
 
   findAll() {
-    return this.clienteRepository.find({ relations: this.relations });
+    return this.clienteRepository.find({
+      relations: this.relations,
+      order: { id_cliente: 'ASC' },
+    });
   }
 
   async findOne(id: number) {

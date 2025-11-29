@@ -15,6 +15,7 @@ export class TarifasService {
   findAll() {
     return this.repo.find({
       relations: ['proveedor', 'origen', 'destino'],
+      order: { id_tarifa: 'ASC' },
     });
   }
 
