@@ -15,6 +15,7 @@ export class OperacionesService {
   findAll() {
     return this.repo.find({
       relations: ['cliente', 'usuario_operativo', 'proveedor', 'agente'],
+      order: { id_operacion: 'ASC' },
     });
   }
 
