@@ -15,6 +15,7 @@ export class CotizacionesService {
   findAll() {
     return this.repo.find({
       relations: ['cliente', 'usuario_ventas', 'usuario_operativo', 'origen', 'destino', 'proveedor', 'agente', 'solicitud_cliente'],
+      order: { id_cotizacion: 'ASC' },
     });
   }
 
