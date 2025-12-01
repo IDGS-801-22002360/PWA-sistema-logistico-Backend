@@ -19,7 +19,8 @@ async function bootstrap() {
       'http://localhost:4200', //* React Local
       'http://localhost:5173',
       'https://crmlogistico-gqembuffawgdfudk.canadacentral-01.azurewebsites.net',
-      'https://pwa-l4rb2njva-idgs-801-22002360s-projects.vercel.app',
+      'https://pwa-l4rb2njva-idgs-801-22002360s-projects.vercel.app', //* Vercel - COLABORADOR
+      'https://pwasl.vercel.app', //* Vercel - Ruta Publica
       process.env.API_BASE_URL,
     ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
