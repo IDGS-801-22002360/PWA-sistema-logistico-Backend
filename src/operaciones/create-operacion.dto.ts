@@ -43,4 +43,8 @@ export class CreateOperacionDto {
   @IsOptional()
   @IsString()
   notas_operacion?: string;
+
+  @IsOptional()
+  @IsEnum(['pendiente_documentos', 'en_transito', 'en_aduana', 'entregado', 'cancelado'])
+  estatus?: string;
 }
